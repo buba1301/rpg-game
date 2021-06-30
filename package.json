@@ -5,6 +5,7 @@
   "scripts": {
     "build:dev": "env NODE_ENV=development webpack",
     "build": "env NODE_ENV=production webpack",
+    "start": "webpack server",
     "lint": "npx eslint src/**/*.js",
     "prettier": "npx prettier --write .",
     "dev": "npx webpack server",
@@ -22,6 +23,7 @@
     "eslint-plugin-import": "^2.23.4",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
+    "husky": "^6.0.0",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
     "sass": "^1.35.1",
@@ -29,7 +31,10 @@
     "style-loader": "^3.0.0",
     "webpack": "^5.41.1",
     "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^3.11.2",
-    "husky": "^6.0.0"
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@hapi/hapi": "^20.1.5",
+    "@hapi/inert": "^6.0.3"
   }
 }
