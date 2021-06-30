@@ -16,9 +16,29 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.\js$/,
+        test: /\.js$/,
         loader: 'babel-loader',
         exclude: [/node-modules/],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
+      },
+      {
+        test: [/\.svg$/, /\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'assets/',
+            },
+          },
+        ],
       },
     ],
   },
