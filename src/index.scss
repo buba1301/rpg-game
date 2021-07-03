@@ -17,7 +17,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url(./assets/Mountains1.png);
+  background-image: url(./assets/assets/Mountains.png);
 }
 
 .wrap {
@@ -31,7 +31,7 @@ body {
 .logo {
   width: 620px;
   height: 146px;
-  background-image: url(./assets/logo.png);
+  background-image: url(./assets/assets/logo.png);
   background-size: cover;
   margin-bottom: 24px;
 }
@@ -60,7 +60,7 @@ body {
 }
 
 .top {
-  background-image: url(./assets/border-top.png);
+  background-image: url(./assets/assets/border-top.png);
   background-repeat: repeat-x;
   position: absolute;
   height: 12px;
@@ -71,7 +71,7 @@ body {
 }
 
 .bottom {
-  background-image: url(./assets/border-bottom.png);
+  background-image: url(./assets/assets/border-bottom.png);
   background-repeat: repeat-x;
   position: absolute;
   height: 12px;
@@ -82,7 +82,7 @@ body {
 }
 
 .top-right {
-  background-image: url(./assets/border-top-right.png);
+  background-image: url(./assets/assets/border-top-right.png);
   background-repeat: repeat-x;
   position: absolute;
   width: 12px;
@@ -93,7 +93,7 @@ body {
 }
 
 .top-left {
-  background-image: url(./assets/border-top-left.png);
+  background-image: url(./assets/assets/border-top-left.png);
   background-repeat: repeat-x;
   position: absolute;
   width: 12px;
@@ -104,7 +104,7 @@ body {
 }
 
 .left {
-  background-image: url(./assets/border-left.png);
+  background-image: url(./assets/assets/border-left.png);
   background-repeat: repeat-y;
   position: absolute;
   width: 12px;
@@ -115,7 +115,7 @@ body {
 }
 
 .right {
-  background-image: url(./assets/border-right.png);
+  background-image: url(./assets/assets/border-right.png);
   background-repeat: repeat-y;
   position: absolute;
   width: 12px;
@@ -126,7 +126,7 @@ body {
 }
 
 .bottom-right {
-  background-image: url(./assets/border-bottom-right.png);
+  background-image: url(./assets/assets/border-bottom-right.png);
   background-repeat: repeat-x;
   position: absolute;
   width: 12px;
@@ -137,7 +137,7 @@ body {
 }
 
 .bottom-left {
-  background-image: url(./assets/border-bottom-left.png);
+  background-image: url(./assets/assets/border-bottom-left.png);
   background-repeat: repeat-x;
   position: absolute;
   width: 12px;
