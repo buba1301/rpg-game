@@ -14,12 +14,12 @@ const shots = 3;
 let direction = 0;
 let cycle = 0;
 let bottomPress = false;
-let pY = 0;
+let pY = 280;
 let upPress = false;
 
 let leftPress = false;
 let rigthPress = false;
-let pX = 0;
+let pX = 280;
 
 const img = document.createElement('img');
 img.src = Face;
@@ -70,7 +70,6 @@ img.addEventListener('load', () => {
     }
     if (rigthPress && pX !== rigthStop) {
       pX += 10;
-      console.log('pX', pX);
       direction = 2;
       cycle = (cycle + 1) % shots;
     }
