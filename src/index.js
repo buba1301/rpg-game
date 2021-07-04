@@ -5,6 +5,10 @@ const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const spriteW = 48;
 const spriteH = 48;
+const upStop = 0;
+const bottomStop = 550;
+const leftStop = 0;
+const rigthStop = 560;
 const shots = 3;
 
 let direction = 0;
@@ -49,23 +53,24 @@ document.addEventListener('keyup', keyUpHandler);
 
 img.addEventListener('load', () => {
   setInterval(() => {
-    if (bottomPress) {
+    if (bottomPress && pY !== bottomStop) {
       pY += 10;
       direction = 0;
       cycle = (cycle + 1) % shots;
     }
-    if (upPress) {
+    if (upPress && pY !== upStop) {
       pY -= 10;
       direction = 3;
       cycle = (cycle + 1) % shots;
     }
-    if (leftPress) {
+    if (leftPress && pX !== leftStop) {
       pX -= 10;
       direction = 1;
       cycle = (cycle + 1) % shots;
     }
-    if (rigthPress) {
+    if (rigthPress && pX !== rigthStop) {
       pX += 10;
+      console.log('pX', pX);
       direction = 2;
       cycle = (cycle + 1) % shots;
     }
