@@ -3,6 +3,10 @@ import Face from './assets/assets/Male-4-Walk.png';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
+const coordX = 0;
+const coordY = 0;
+const fieldWidth = 600;
+const fieldHeigth = 600;
 const spriteW = 48;
 const spriteH = 48;
 const upStop = 0;
@@ -14,6 +18,8 @@ const moveDown = 0;
 const moveLeft = 1;
 const moveRigth = 2;
 const moveUp = 3;
+const shiftForward = 10;
+const shiftBack = -10;
 
 let direction = moveDown;
 let cycle = 0;
@@ -67,18 +73,18 @@ const makeCharacterMove = (shift, curDirection, coord = 'X') => {
 img.addEventListener('load', () => {
   setInterval(() => {
     if (bottomPress && pY !== bottomStop) {
-      makeCharacterMove(10, moveDown, 'Y');
+      makeCharacterMove(shiftForward, moveDown, 'Y');
     }
     if (upPress && pY !== upStop) {
-      makeCharacterMove(-10, moveUp, 'Y');
+      makeCharacterMove(shiftBack, moveUp, 'Y');
     }
     if (leftPress && pX !== leftStop) {
-      makeCharacterMove(-10, moveLeft);
+      makeCharacterMove(shiftBack, moveLeft);
     }
     if (rigthPress && pX !== rigthStop) {
-      makeCharacterMove(10, moveRigth);
+      makeCharacterMove(shiftForward, moveRigth);
     }
-    ctx.clearRect(0, 0, 600, 600);
+    ctx.clearRect(coordX, coordY, fieldWidth, fieldHeigth);
     ctx.drawImage(img, cycle * spriteW, direction * spriteH, spriteH, spriteW, pX, pY, 48, 48);
   }, 120);
 });
