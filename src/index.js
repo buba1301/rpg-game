@@ -10,15 +10,18 @@ const bottomStop = 550;
 const leftStop = 0;
 const rigthStop = 560;
 const shots = 3;
+const moveDown = 0;
+const moveLeft = 1;
+const moveRigth = 2;
+const moveUp = 3;
 
-let direction = 0;
+let direction = moveDown;
 let cycle = 0;
 let bottomPress = false;
-let pY = 280;
 let upPress = false;
-
 let leftPress = false;
 let rigthPress = false;
+let pY = 280;
 let pX = 280;
 
 const img = document.createElement('img');
@@ -51,27 +54,29 @@ const keyUpHandler = (e) => {
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 
+const makeCharacterMove = (shift, curDirection, coord = 'X') => {
+  if (coord === 'Y') {
+    pY += shift;
+  } else {
+    pX += shift;
+  }
+  direction = curDirection;
+  cycle = (cycle + 1) % shots;
+};
+
 img.addEventListener('load', () => {
   setInterval(() => {
     if (bottomPress && pY !== bottomStop) {
-      pY += 10;
-      direction = 0;
-      cycle = (cycle + 1) % shots;
+      makeCharacterMove(10, moveDown, 'Y');
     }
     if (upPress && pY !== upStop) {
-      pY -= 10;
-      direction = 3;
-      cycle = (cycle + 1) % shots;
+      makeCharacterMove(-10, moveUp, 'Y');
     }
     if (leftPress && pX !== leftStop) {
-      pX -= 10;
-      direction = 1;
-      cycle = (cycle + 1) % shots;
+      makeCharacterMove(-10, moveLeft);
     }
     if (rigthPress && pX !== rigthStop) {
-      pX += 10;
-      direction = 2;
-      cycle = (cycle + 1) % shots;
+      makeCharacterMove(10, moveRigth);
     }
     ctx.clearRect(0, 0, 600, 600);
     ctx.drawImage(img, cycle * spriteW, direction * spriteH, spriteH, spriteW, pX, pY, 48, 48);
