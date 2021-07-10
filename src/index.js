@@ -1,26 +1,46 @@
 import './index.scss';
-import Face from './assets/assets/Male-4-Walk.png';
+import Face from './assets/Male-4-Walk.png';
+import terrainAtlas from './assets/terrain.png';
+import worldCfg from './configs/world.json';
+import sprites from './configs/sprites';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const spriteW = 48;
 const spriteH = 48;
-const shots = 3;
+/* const shots = 3;
 
-let direction = 0;
-let cycle = 0;
-let bottomPress = false;
-let pY = 0;
-let upPress = false;
+const direction = 0;
+const cycle = 0;
+const bottomPress = false;
+const pY = 0;
+const upPress = false;
 
-let leftPress = false;
-let rigthPress = false;
-let pX = 0;
+const leftPress = false;
+const rigthPress = false;
+const pX = 0; */
 
 const img = document.createElement('img');
 img.src = Face;
 
-const keyDownHandler = (e) => {
+const terrain = document.createElement('img');
+terrain.src = terrainAtlas;
+
+terrain.addEventListener('load', () => {
+  const { map } = worldCfg;
+
+  map.forEach((configRow, y) => {
+    configRow.forEach((configCell, x) => {
+      const [terrainName] = configCell;
+
+      const { frames } = sprites.terrain[terrainName];
+      const [sY, sX, sW, sH] = frames[0];
+      ctx.drawImage(terrain, sY, sX, sW, sH, x * spriteW, y * spriteH, spriteW, spriteH);
+    });
+  });
+});
+
+/* const keyDownHandler = (e) => {
   if (e.key === 'Down' || e.key === 'ArrowDown') {
     bottomPress = true;
   } else if (e.key === 'Up' || e.key === 'ArrowUp') {
@@ -72,4 +92,4 @@ img.addEventListener('load', () => {
     ctx.clearRect(0, 0, 600, 600);
     ctx.drawImage(img, cycle * spriteW, direction * spriteH, spriteH, spriteW, pX, pY, 48, 48);
   }, 120);
-});
+}); */
