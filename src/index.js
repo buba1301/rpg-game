@@ -3,12 +3,17 @@ import Face from './assets/Male-4-Walk.png';
 import terrainAtlas from './assets/terrain.png';
 import worldCfg from './configs/world.json';
 import sprites from './configs/sprites';
+import ClientGame from './client/ClientGame';
 
-const canvas = document.getElementById('game');
+window.addEventListener('load', () => {
+  ClientGame.init({ tagId: 'game' });
+});
+
+/* const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
 const spriteW = 48;
 const spriteH = 48;
-/* const shots = 3;
+const shots = 3;
 
 const direction = 0;
 const cycle = 0;
@@ -18,7 +23,7 @@ const upPress = false;
 
 const leftPress = false;
 const rigthPress = false;
-const pX = 0; */
+const pX = 0;
 
 const img = document.createElement('img');
 img.src = Face;
@@ -40,7 +45,7 @@ terrain.addEventListener('load', () => {
   });
 });
 
-/* const keyDownHandler = (e) => {
+const keyDownHandler = (e) => {
   if (e.key === 'Down' || e.key === 'ArrowDown') {
     bottomPress = true;
   } else if (e.key === 'Up' || e.key === 'ArrowUp') {
