@@ -77,21 +77,25 @@ const makeCharacterMove = (shift, curDirection, coord = 'X') => {
   cycle = (cycle + 1) % shots;
 };
 
+function walk(timeStamp) {
+  if (bottomPress && pY !== bottomStop) {
+    makeCharacterMove(shiftForward, moveDown, 'Y');
+  }
+  if (upPress && pY !== upStop) {
+    makeCharacterMove(shiftBack, moveUp, 'Y');
+  }
+  if (leftPress && pX !== leftStop) {
+    makeCharacterMove(shiftBack, moveLeft);
+  }
+  if (rigthPress && pX !== rigthStop) {
+    makeCharacterMove(shiftForward, moveRigth);
+  }
+  ctx.clearRect(coordX, coordY, canvasWidth, canvasHeight);
+  ctx.drawImage(img, cycle * spriteW, direction * spriteH, spriteH, spriteW, pX, pY, 48, 48);
+
+  window.requestAnimationFrame(walk);
+}
+
 img.addEventListener('load', () => {
-  setInterval(() => {
-    if (bottomPress && pY !== bottomStop) {
-      makeCharacterMove(shiftForward, moveDown, 'Y');
-    }
-    if (upPress && pY !== upStop) {
-      makeCharacterMove(shiftBack, moveUp, 'Y');
-    }
-    if (leftPress && pX !== leftStop) {
-      makeCharacterMove(shiftBack, moveLeft);
-    }
-    if (rigthPress && pX !== rigthStop) {
-      makeCharacterMove(shiftForward, moveRigth);
-    }
-    ctx.clearRect(coordX, coordY, canvasWidth, canvasHeight);
-    ctx.drawImage(img, cycle * spriteW, direction * spriteH, spriteH, spriteW, pX, pY, 48, 48);
-  }, 120);
+  window.requestAnimationFrame(walk);
 });
