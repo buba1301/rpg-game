@@ -77,6 +77,7 @@ const makeCharacterMove = (shift, curDirection, coord = 'X') => {
   cycle = (cycle + 1) % shots;
 };
 
+// eslint-disable-next-line no-unused-vars
 function walk(timeStamp) {
   if (bottomPress && pY !== bottomStop) {
     makeCharacterMove(shiftForward, moveDown, 'Y');
