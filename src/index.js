@@ -3,23 +3,29 @@ import Face from './assets/assets/Male-4-Walk.png';
 
 const canvas = document.getElementById('game');
 const ctx = canvas.getContext('2d');
+
+const canvasWidth = Number(canvas.getAttribute('width'));
+const canvasHeight = Number(canvas.getAttribute('height'));
+
 const coordX = 0;
 const coordY = 0;
-const fieldWidth = 600;
-const fieldHeigth = 600;
 const spriteW = 48;
 const spriteH = 48;
+
 const upStop = 0;
-const bottomStop = 550;
+const bottomStop = canvasHeight - spriteH;
 const leftStop = 0;
-const rigthStop = 560;
+const rigthStop = canvasWidth - spriteW;
+
 const shots = 3;
+
 const moveDown = 0;
 const moveLeft = 1;
 const moveRigth = 2;
 const moveUp = 3;
-const shiftForward = 10;
-const shiftBack = -10;
+
+const shiftForward = 12;
+const shiftBack = -12;
 
 let direction = moveDown;
 let cycle = 0;
@@ -27,8 +33,9 @@ let bottomPress = false;
 let upPress = false;
 let leftPress = false;
 let rigthPress = false;
-let pY = 280;
-let pX = 280;
+let pY = canvasHeight / 2 - spriteH;
+
+let pX = canvasWidth / 2 - spriteW;
 
 const img = document.createElement('img');
 img.src = Face;
@@ -84,7 +91,7 @@ img.addEventListener('load', () => {
     if (rigthPress && pX !== rigthStop) {
       makeCharacterMove(shiftForward, moveRigth);
     }
-    ctx.clearRect(coordX, coordY, fieldWidth, fieldHeigth);
+    ctx.clearRect(coordX, coordY, canvasWidth, canvasHeight);
     ctx.drawImage(img, cycle * spriteW, direction * spriteH, spriteH, spriteW, pX, pY, 48, 48);
   }, 120);
 });
