@@ -1,3 +1,4 @@
+/* eslint-disable object-curly-newline */
 import EventSourceMixin from '../common/EventSourceMixin';
 
 /* eslint-disable no-unused-vars */
@@ -63,6 +64,19 @@ class ClientEngine {
       i.onload = () => resolve(i);
       i.src = url;
     });
+  }
+
+  renderSpriteFrame({ sprite, frame, x, y, w, h }) {
+    const [groupName, name] = sprite;
+
+    const spriteCfg = this.sprites[groupName][name];
+
+    const { img, frames } = spriteCfg;
+
+    const [fx, fy, fw, fh] = frames[frame];
+    const image = this.images[img];
+
+    this.ctx.drawImage(image, fx, fy, fw, fh, x, y, w, h);
   }
 }
 

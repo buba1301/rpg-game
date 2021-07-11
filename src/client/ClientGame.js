@@ -1,5 +1,7 @@
 import sprites from '../configs/sprites';
+import levelCfg from '../configs/world.json';
 import ClientEngine from './ClientEngine';
+import ClientWorld from './ClientWorld';
 
 class ClientGame {
   constructor(cfg) {
@@ -8,6 +10,7 @@ class ClientGame {
     });
 
     this.engine = this.createEngine();
+    this.world = this.createWorld();
 
     this.initEngine();
   }
@@ -17,11 +20,16 @@ class ClientGame {
     return new ClientEngine(canvas);
   }
 
+  createWorld() {
+    return new ClientWorld(this, this.engine, levelCfg);
+  }
+
   initEngine() {
     this.engine.loadSprites(sprites).then(() => {
-      console.log('ENGINE', this.engine);
       this.engine.on('render', (_, time) => {
         console.log('Render', time);
+
+        this.world.init();
       });
       this.engine.start();
     });
