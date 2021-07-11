@@ -1,3 +1,4 @@
+import sprites from '../configs/sprites';
 import ClientEngine from './ClientEngine';
 
 class ClientGame {
@@ -17,7 +18,11 @@ class ClientGame {
   }
 
   initEngine() {
-    this.engine.start();
+    this.engine.loadSprites(sprites).then(() => {
+      console.log('This engine', this.engine);
+
+      this.engine.start();
+    });
   }
 
   static init(cfg) {
