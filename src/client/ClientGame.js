@@ -19,8 +19,10 @@ class ClientGame {
 
   initEngine() {
     this.engine.loadSprites(sprites).then(() => {
-      console.log('This engine', this.engine);
-
+      console.log('ENGINE', this.engine);
+      this.engine.on('render', (_, time) => {
+        console.log('Render', time);
+      });
       this.engine.start();
     });
   }

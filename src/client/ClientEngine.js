@@ -1,3 +1,5 @@
+import EventSourceMixin from '../common/EventSourceMixin';
+
 /* eslint-disable no-unused-vars */
 class ClientEngine {
   constructor(canvas) {
@@ -23,6 +25,7 @@ class ClientEngine {
     ctx.fillStyle = 'black';
     ctx.clearRect(0, 0, canvas.width, canvas.heigth);
 
+    this.trigger('render', timeStamp);
     this.initNextFrame();
   }
 
@@ -62,5 +65,7 @@ class ClientEngine {
     });
   }
 }
+
+Object.assign(ClientEngine.prototype, EventSourceMixin);
 
 export default ClientEngine;
