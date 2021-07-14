@@ -56,5 +56,5 @@ module.exports = {
     hot: true,
     historyApiFallback: true,
   },
-  devtool: NODE_ENV === 'development' ? 'sorce-map' : false,
+  devtool: NODE_ENV === 'development' ? 'source-map' : false,
 };
