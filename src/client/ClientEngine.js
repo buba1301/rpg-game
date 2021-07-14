@@ -1,5 +1,6 @@
 /* eslint-disable object-curly-newline */
 import EventSourceMixin from '../common/EventSourceMixin';
+import ClientCamera from './ClientCamera';
 
 /* eslint-disable no-unused-vars */
 class ClientEngine {
@@ -10,6 +11,7 @@ class ClientEngine {
       imageLoaders: [],
       sprites: {},
       images: {},
+      camera: new ClientCamera({ canvas, engine: this }),
     });
 
     this.ctx = canvas.getContext('2d');
