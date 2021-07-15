@@ -8,7 +8,7 @@ class ClientGameObject extends MovableObject {
 
     const { world } = cfg.cell;
     const gameObjs = world.game.gameObjects;
-    const objCfg = { type: cfg.objCfg };
+    const objCfg = typeof cfg.objCfg === 'string' ? { type: cfg.objCfg } : cfg.objCfg;
 
     Object.assign(
       this,
@@ -25,6 +25,8 @@ class ClientGameObject extends MovableObject {
       },
       cfg,
     );
+
+    console.log('ClientGameObject', typeof cfg.objCfg);
   }
 
   moveByCellCoord(dcol, drow, conditionCallback = null) {

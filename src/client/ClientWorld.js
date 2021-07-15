@@ -65,13 +65,8 @@ class ClientWorld extends PositionedObject {
   render(time) {
     const { map, worldWidth, worldHeight } = this;
 
-    console.log('RENDER WOrld', this);
-
     for (let row = 0; row < worldHeight; row += 1) {
       for (let col = 0; col < worldWidth; col += 1) {
-        console.log('ROW CALL MAP', map);
-        console.log('ROW CALL', row, col);
-
         map[row][col].render(time);
       }
     }
