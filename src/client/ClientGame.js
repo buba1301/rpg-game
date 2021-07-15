@@ -9,12 +9,17 @@ class ClientGame {
     Object.assign(this, {
       cfg,
       gameObjects,
+      player: null,
     });
 
     this.engine = this.createEngine();
     this.world = this.createWorld();
 
     this.initEngine();
+  }
+
+  setPlayer(player) {
+    this.player = player;
   }
 
   createEngine() {
@@ -34,6 +39,33 @@ class ClientGame {
         this.world.render(time);
       });
       this.engine.start();
+      this.initKeys();
+    });
+  }
+
+  moveBy(keydown, x, y) {
+    if (keydown) {
+      this.player.moveByCellCoord(x, y, (cell) => {
+        console.log('KeyDown CELL', cell.findObjectsByType('grass'));
+        return cell.findObjectsByType('grass').length;
+      });
+    }
+  }
+
+  initKeys() {
+    this.engine.input.onKey({
+      ArrowLeft: (keydown) => {
+        this.moveBy(keydown, -1, 0);
+      },
+      ArrowDown: (keydown) => {
+        this.moveBy(keydown, 0, 1);
+      },
+      ArrowUp: (keydown) => {
+        this.moveBy(keydown, 0, -1);
+      },
+      ArrowRight: (keydown) => {
+        this.moveBy(keydown, 1, 0);
+      },
     });
   }
 
