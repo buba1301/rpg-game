@@ -11,5 +11,9 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'max-len': ['error', {
+      code: 120,
+    }],
+    'object-curly-newline': 'off',
   },
 };
