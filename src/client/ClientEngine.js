@@ -5,7 +5,7 @@ import ClientInput from './ClientInput';
 
 /* eslint-disable no-unused-vars */
 class ClientEngine {
-  constructor(canvas) {
+  constructor(canvas, game) {
     Object.assign(this, {
       canvas,
       ctx: null,
@@ -14,13 +14,12 @@ class ClientEngine {
       images: {},
       camera: new ClientCamera({ canvas, engine: this }),
       input: new ClientInput(canvas),
+      game,
     });
 
     this.ctx = canvas.getContext('2d');
 
     this.loop = this.loop.bind(this);
-
-    // console.log('CLIENTEng Canvas', canvas);
   }
 
   start() {
@@ -81,8 +80,9 @@ class ClientEngine {
 
     const [fx, fy, fw, fh] = frames[frame];
     const image = this.images[img];
+    const { camera } = this;
 
-    this.ctx.drawImage(image, fx, fy, fw, fh, x, y, w, h);
+    this.ctx.drawImage(image, fx, fy, fw, fh, x - camera.x, y - camera.y, w, h);
   }
 }
 

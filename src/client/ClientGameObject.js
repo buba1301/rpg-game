@@ -29,8 +29,6 @@ class ClientGameObject extends MovableObject {
       },
       cfg,
     );
-
-    // console.log('ClientGameObject', this.spriteCfg, typeof cfg.objCfg);
   }
 
   moveByCellCoord(dcol, drow, conditionCallback = null) {
@@ -52,6 +50,7 @@ class ClientGameObject extends MovableObject {
       newCell.addGameObject(this);
 
       const { x, y, width, height } = newCell;
+
       Object.assign(this, { x, y, width, height });
     }
   }

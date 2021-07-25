@@ -16,17 +16,19 @@ class ClientGame {
     this.world = this.createWorld();
 
     this.initEngine();
-
-    // console.log('CLIENTGame constructor', this.engine);
   }
 
   setPlayer(player) {
     this.player = player;
   }
 
+  getWorld() {
+    return this.map;
+  }
+
   createEngine() {
     const canvas = document.getElementById(this.cfg.tagId);
-    return new ClientEngine(canvas);
+    return new ClientEngine(canvas, this);
   }
 
   createWorld() {
@@ -37,7 +39,7 @@ class ClientGame {
     this.engine.loadSprites(sprites).then(() => {
       this.world.init();
       this.engine.on('render', (_, time) => {
-        // console.log('Render', time);
+        this.engine.camera.focusAtGameObject(this.player);
         this.world.render(time);
       });
       this.engine.start();
@@ -72,7 +74,6 @@ class ClientGame {
   static init(cfg) {
     if (!ClientGame.game) {
       ClientGame.game = new ClientGame(cfg);
-      console.log('Game INIT', cfg);
     }
   }
 }

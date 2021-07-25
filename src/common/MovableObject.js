@@ -49,11 +49,15 @@ class MovableObject extends PositionedObject {
   }
 
   moveTo(x, y, smooth = true, speed = 200) {
+    // console.log('moveTo', y);
+
     let [newX, newY] = [x, y];
     const { width, height } = this;
 
     if (this.clampToMap && this.engine) {
       const world = this.engine.game.getWorld();
+      // console.log('moveTo', world);
+
       if (world) {
         // Делаем, чтобы камера не выходила за пределы мира
         // левый верхний угол

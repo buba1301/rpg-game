@@ -12,7 +12,7 @@ class ClientCell extends PositionedObject {
         cfg,
         objects: [],
         x: cellWidth * cfg.cellCol,
-        y: cellWidth * cfg.cellRow,
+        y: cellHeight * cfg.cellRow,
         width: cellWidth,
         height: cellHeight,
       },
