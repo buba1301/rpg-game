@@ -20,9 +20,6 @@ class ClientWorld extends PositionedObject {
       cellWidth: cellSize,
       cellHeight: cellSize,
       map: [],
-      spriteW: 48,
-      spriteH: 48,
-      groupName: 'terrain',
     });
   }
 
@@ -43,23 +40,6 @@ class ClientWorld extends PositionedObject {
         });
       }
     }
-
-    /* const { map } = this.levelCfg;
-
-    map.forEach((configRow, y) => {
-      configRow.forEach((configCell, x) => {
-        const [terrainName] = configCell;
-
-        this.engine.renderSpriteFrame({
-          sprite: [this.groupName, terrainName],
-          frame: 0,
-          x: x * this.spriteW,
-          y: y * this.spriteH,
-          w: this.spriteW,
-          h: this.spriteH,
-        });
-      });
-    }); */
   }
 
   render(time) {

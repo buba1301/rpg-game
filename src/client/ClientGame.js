@@ -16,6 +16,8 @@ class ClientGame {
     this.world = this.createWorld();
 
     this.initEngine();
+
+    // console.log('CLIENTGame constructor', this.engine);
   }
 
   setPlayer(player) {
@@ -45,10 +47,8 @@ class ClientGame {
 
   moveBy(keydown, x, y) {
     if (keydown) {
-      this.player.moveByCellCoord(x, y, (cell) => {
-        console.log('KeyDown CELL', cell.findObjectsByType('grass'));
-        return cell.findObjectsByType('grass').length;
-      });
+      const conditionCallback = (cell) => cell.findObjectsByType('grass').length;
+      this.player.moveByCellCoord(x, y, conditionCallback);
     }
   }
 
@@ -72,7 +72,7 @@ class ClientGame {
   static init(cfg) {
     if (!ClientGame.game) {
       ClientGame.game = new ClientGame(cfg);
-      console.log('Game INIT');
+      console.log('Game INIT', cfg);
     }
   }
 }

@@ -8,10 +8,12 @@ class ClientCamera extends MovableObject {
       this,
       {
         width: cfg.canvas.width,
-        heigth: cfg.canvas.heigth,
+        height: cfg.canvas.height,
       },
       cfg,
     );
+
+    // console.log('ClientCamera', this);
   }
 
   focusAtGameObject(obj) {

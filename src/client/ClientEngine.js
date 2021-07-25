@@ -19,6 +19,8 @@ class ClientEngine {
     this.ctx = canvas.getContext('2d');
 
     this.loop = this.loop.bind(this);
+
+    // console.log('CLIENTEng Canvas', canvas);
   }
 
   start() {
