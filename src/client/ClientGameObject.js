@@ -1,4 +1,6 @@
+/* eslint-disable no-bitwise */
 import MovableObject from '../common/MovableObject';
+import { animateEx } from '../common/util';
 
 class ClientGameObject extends MovableObject {
   constructor(cfg) {
@@ -26,6 +28,8 @@ class ClientGameObject extends MovableObject {
         objectConfig: objCfg,
         type: objCfg.type,
         world,
+        state: 'main',
+        animationStartTime: 0,
       },
       cfg,
     );
@@ -33,14 +37,17 @@ class ClientGameObject extends MovableObject {
 
   moveByCellCoord(dcol, drow, conditionCallback = null) {
     const { cell } = this;
-    this.moveToCellCoord(cell.cellCol + dcol, cell.cellRow + drow, conditionCallback);
+    return this.moveToCellCoord(cell.cellCol + dcol, cell.cellRow + drow, conditionCallback);
   }
 
   moveToCellCoord(dcol, drow, conditionCallback = null) {
     const { world } = this;
     const newCell = world.cellAt(dcol, drow);
-
-    if (!conditionCallback || conditionCallback(newCell)) this.setCell(newCell);
+    const canMove = !conditionCallback || conditionCallback(newCell);
+    if (canMove) {
+      this.setCell(newCell);
+    }
+    return canMove;
   }
 
   setCell(newCell) {
@@ -57,15 +64,35 @@ class ClientGameObject extends MovableObject {
     }
   }
 
+  setState(state) {
+    this.state = state;
+
+    if (this.world) {
+      this.animationStartTime = this.world.engine.lastRenderTime;
+    }
+  }
+
+  getCurrentFrame(time) {
+    const state = this.spriteCfg.states[this.state];
+
+    const lengthFrame = state.frames.length;
+
+    const animate = animateEx(lengthFrame, this.animationStartTime, time, state.duration, true);
+
+    const frame = ((lengthFrame / animate.offset) | 0) % lengthFrame;
+
+    return state.frames[frame];
+  }
+
   render(time) {
     super.render(time);
 
     const { x, y, width, height, world } = this;
     const { engine } = world;
 
-    const { sprite, frame, states } = this.spriteCfg;
+    const { sprite, frame, type } = this.spriteCfg;
 
-    const spriteFrame = states ? states.main.frames[0] : frame;
+    const spriteFrame = type === 'static' ? frame : this.getCurrentFrame(time);
 
     engine.renderSpriteFrame({ sprite, frame: spriteFrame, x, y, w: width, h: height });
   }

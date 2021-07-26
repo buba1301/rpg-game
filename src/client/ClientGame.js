@@ -47,26 +47,35 @@ class ClientGame {
     });
   }
 
-  moveBy(keydown, x, y) {
+  moveBy(keydown, x, y, dir) {
+    const { player } = this;
+
     if (keydown) {
-      const conditionCallback = (cell) => cell.findObjectsByType('grass').length;
-      this.player.moveByCellCoord(x, y, conditionCallback);
+      if (player && player.motionProgress === 1) {
+        const conditionCallback = (cell) => cell.findObjectsByType('grass').length;
+        const canMove = player.moveByCellCoord(x, y, conditionCallback);
+
+        if (canMove) {
+          player.setState(dir);
+          player.once('motion-stopped', () => player.setState('main'));
+        }
+      }
     }
   }
 
   initKeys() {
     this.engine.input.onKey({
       ArrowLeft: (keydown) => {
-        this.moveBy(keydown, -1, 0);
+        this.moveBy(keydown, -1, 0, 'left');
       },
       ArrowDown: (keydown) => {
-        this.moveBy(keydown, 0, 1);
+        this.moveBy(keydown, 0, 1, 'down');
       },
       ArrowUp: (keydown) => {
-        this.moveBy(keydown, 0, -1);
+        this.moveBy(keydown, 0, -1, 'up');
       },
       ArrowRight: (keydown) => {
-        this.moveBy(keydown, 1, 0);
+        this.moveBy(keydown, 1, 0, 'right');
       },
     });
   }
