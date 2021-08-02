@@ -19,6 +19,8 @@ class ClientCell extends PositionedObject {
         y: cellHeight * cfg.cellRow,
         width: cellWidth,
         height: cellHeight,
+        col: cfg.cellCol,
+        row: cfg.cellRow,
       },
       cfg,
     );

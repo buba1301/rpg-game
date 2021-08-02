@@ -1,6 +1,9 @@
+/* eslint-disable no-bitwise */
+/* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
 import PositionedObject from '../common/PositionedObject';
 import ClientCell from './ClientCell';
+import clamp from '../common/util';
 
 class ClientWorld extends PositionedObject {
   constructor(game, engine, levelCfg) {
@@ -52,7 +55,7 @@ class ClientWorld extends PositionedObject {
       if (layer.isStatic) {
         this.renderStaticLayer(time, layer, layerId);
       } else {
-        this.renderDynamicLayer(time, layerId);
+        this.renderDynamicLayer(time, layerId, this.getRenderRange());
       }
     }
   }
@@ -81,11 +84,20 @@ class ClientWorld extends PositionedObject {
     engine.renderCanvas(layerName, cameraPos, { x: 0, y: 0, width: cameraPos.width, height: cameraPos.height });
   }
 
-  renderDynamicLayer(time, layerId) {
+  renderDynamicLayer(time, layerId, rengeCells) {
     const { map, worldWidth, worldHeight } = this;
 
-    for (let row = 0; row < worldHeight; row += 1) {
-      for (let col = 0; col < worldWidth; col += 1) {
+    if (!rengeCells) {
+      rengeCells = {
+        startCell: this.cellAt(0, 0),
+        endCell: this.cellAt(worldWidth - 1, worldHeight - 1),
+      };
+    }
+
+    const { startCell, endCell } = rengeCells;
+
+    for (let { row } = startCell; row <= endCell.row; row += 1) {
+      for (let { col } = startCell; col <= endCell.col; col += 1) {
         map[row][col].render(time, layerId);
       }
     }
@@ -93,6 +105,25 @@ class ClientWorld extends PositionedObject {
 
   cellAt(col, row) {
     return this.map[row] && this.map[row][col];
+  }
+
+  cellAtXY(x, y) {
+    const { width, height, cellWidth, cellHeight } = this;
+
+    const col = (clamp(x, 0, width - 1) / cellWidth) | 0;
+    const row = (clamp(y, 0, height - 1) / cellHeight) | 0;
+
+    return this.cellAt(col, row);
+  }
+
+  getRenderRange() {
+    const { x, y, width, height } = this.engine.camera.worldBounds();
+    const { cellWidth, cellHeight } = this;
+
+    return {
+      startCell: this.cellAtXY(x - cellWidth, y - cellHeight),
+      endCell: this.cellAtXY(x + width + cellWidth, y + height + cellHeight),
+    };
   }
 }
 
