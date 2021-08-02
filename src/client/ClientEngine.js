@@ -8,6 +8,9 @@ class ClientEngine {
   constructor(canvas, game) {
     Object.assign(this, {
       canvas,
+      canvases: {
+        main: canvas,
+      },
       ctx: null,
       imageLoaders: [],
       sprites: {},
@@ -91,6 +94,19 @@ class ClientEngine {
     const { camera } = this;
 
     this.ctx.drawImage(image, fx, fy, fw, fh, x - camera.x, y - camera.y, w, h);
+  }
+
+  addCanvas(name, width, height) {
+    let canvas = this.canvases[name];
+
+    if (!canvas) {
+      canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      this.canvases[name] = canvas;
+    }
+
+    return canvas;
   }
 }
 
