@@ -41,14 +41,12 @@ class ClientCell extends PositionedObject {
         let ObjectClass;
 
         if (objCfg.class) {
-          console.log('ObjClass', objCfg);
-
           ObjectClass = objectClasses[objCfg.class];
         } else {
           ObjectClass = ClientGameObject;
         }
 
-        return new ObjectClass({ cell: this, objCfg, layerId });
+        return new ObjectClass({ cell: this, objCfg, layerId, playerName: this.world.game.cfg?.playerName });
       }),
     );
   }
