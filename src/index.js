@@ -1,3 +1,5 @@
+/* eslint-disable no-return-assign */
+/* eslint-disable no-param-reassign */
 import { io } from 'socket.io-client';
 import './index.scss';
 import ClientGame from './client/ClientGame';
@@ -48,11 +50,18 @@ window.addEventListener('load', () => {
   messageFormElem.addEventListener('submit', submitMessage);
 
   const getMessage = (data) => {
-    const html = `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`;
+    const html = `<p class="item-${data.id}" id=${data.id}><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`;
     messageElem.insertAdjacentHTML('beforeend', html);
+
+    if (localStorage.getItem('userId') === data.id) {
+      const pEl = document.querySelectorAll(`.item-${data.id}`);
+
+      pEl.forEach((elem) => (elem.style.color = 'red'));
+    }
   };
 
   socket.on('chat connection', (data) => {
+    localStorage.setItem('userId', data.id);
     getMessage(data);
   });
 
@@ -65,7 +74,6 @@ window.addEventListener('load', () => {
   });
 
   socket.on('chat online', (data) => {
-    console.log('Chat online', data);
     messageHeaderElem.innerHTML = '';
     messageHeaderElem.insertAdjacentHTML('afterbegin', `<p><strong>Players online ${data.online}</strong></>`);
   });
