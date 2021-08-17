@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
   const nameInputElem = document.getElementById('name');
   const nameFormElem = document.getElementById('nameForm');
   const chatElem = document.querySelector('.chat-wrap');
+  const messageHeaderElem = document.querySelector('.header');
   const messageElem = document.querySelector('.message');
   const messageFormElem = document.getElementById('form');
   const messageInputElem = document.getElementById('input');
@@ -29,6 +30,7 @@ window.addEventListener('load', () => {
       startGameElem.remove();
     }
   };
+
   nameFormElem.addEventListener('submit', submitName);
 
   const submitMessage = (e) => {
@@ -37,7 +39,6 @@ window.addEventListener('load', () => {
     const message = messageInputElem.value;
 
     if (message) {
-      console.log('MESSAGE', message);
       socket.emit('chat message', message);
     }
 
@@ -46,18 +47,26 @@ window.addEventListener('load', () => {
 
   messageFormElem.addEventListener('submit', submitMessage);
 
+  const getMessage = (data) => {
+    const html = `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`;
+    messageElem.insertAdjacentHTML('beforeend', html);
+  };
+
   socket.on('chat connection', (data) => {
-    console.log('SOCKET', data);
-    messageElem.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`);
+    getMessage(data);
   });
 
   socket.on('chat disconnect', (data) => {
-    console.log('SOCKET', data);
-    messageElem.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`);
+    getMessage(data);
   });
 
   socket.on('chat message', (data) => {
-    console.log('SOCKET Message', data);
-    messageElem.insertAdjacentHTML('beforeend', `<p><strong>${getTime(data.time)}</strong> - ${data.msg}</p>`);
+    getMessage(data);
+  });
+
+  socket.on('chat online', (data) => {
+    console.log('Chat online', data);
+    messageHeaderElem.innerHTML = '';
+    messageHeaderElem.insertAdjacentHTML('afterbegin', `<p><strong>Players online ${data.online}</strong></>`);
   });
 });

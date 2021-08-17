@@ -247,10 +247,19 @@ body {
 
 .message {
   position: absolute;
-  top: 8px;
+  top: 10px;
   left: 8px;
   right: 8px;
   bottom: 36px;
   overflow: scroll;
   padding: 6px 8px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row-reverse;
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  padding: 14px 12px;
 }
