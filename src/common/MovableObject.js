@@ -68,7 +68,9 @@ class MovableObject extends PositionedObject {
         // Делаем, чтобы камера не выходила за пределы мира
         // левый верхний угол
         newX = clamp(x, 0, world.width - width);
+        console.log('moveTo', world);
         newY = clamp(y, 0, world.height - height);
+        console.log('moveTo', world);
       }
     }
 

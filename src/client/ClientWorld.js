@@ -96,9 +96,9 @@ class ClientWorld extends PositionedObject {
 
     const { startCell, endCell } = rengeCells;
 
-    for (let { row } = startCell; row <= endCell.row; row += 1) {
-      for (let { col } = startCell; col <= endCell.col; col += 1) {
-        map[row][col].render(time, layerId);
+    for (let r = startCell.row; r <= endCell.row; r += 1) {
+      for (let c = startCell.col; c <= endCell.col; c += 1) {
+        map[r][c].render(time, layerId);
       }
     }
   }
